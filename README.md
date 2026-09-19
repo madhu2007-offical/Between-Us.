@@ -1,167 +1,185 @@
-# Between Us • by Natchkin
+<div align="center">
 
-> **A private, judgment-free digital companion designed for teenage girls (12–17 years old) to understand puberty, menstrual cycles, and early hormonal/PCOS patterns.**  
-> Delivered as a mobile-first PWA accessible directly via a QR code printed inside Natchkin period products.
+<img src="./assets/banner.png" alt="<img width="1254" height="716" alt="ChatGPT Image Sep 19, 2026, 12_08_39 PM" src="https://github.com/user-attachments/assets/4004afe8-b3d2-45ca-95da-307bbac86749" />
+" width="480"/>
 
----
+### *Real Questions. Better Answers.*
 
-## 🌸 Emotional & Human Context
+**A private, AI-guided companion helping teenage girls understand puberty, menstrual health, and their bodies — without fear, without shame, without waiting.**
 
-Between Us was designed through the lens of a 14-year-old girl in India using her phone in a school bathroom stall between classes:
-- **Anxious & Rushed**: She needs answers in seconds, with zero typing and zero sound.
-- **Privacy Anxiety**: Siblings or parents might check her phone. The app features **zero-account local encryption** and a **1-tap "Quick Disguise" (Camouflage Mode)** that immediately swaps the screen to an innocent science revision notes / math calculator interface.
-- **Tone**: An understanding, warm older sister — never an intimidating medical clinical form, and never babyish.
-- **Color Direction**: Warm cream (`#FDFBF7`), soft dusty rose (`#D98880`), and deep plum accents (`#4A2040`). Absolutely no stereotypical bright red blood drops or alarmist graphics.
+[![Track](https://img.shields.io/badge/Hackathon_Track-1_Adolescent_Health-A67FD7?style=for-the-badge)](#-the-problem)
+[![Status](https://img.shields.io/badge/Status-Prototype-F885A5?style=for-the-badge)](#-roadmap)
+[![Built for](https://img.shields.io/badge/Built_for-Natchkin-8D63B1?style=for-the-badge)](https://natchkin.com)
+[![License](https://img.shields.io/badge/License-MIT-black?style=for-the-badge)](#-license)
 
----
+[![Gemini](https://img.shields.io/badge/AI-Gemini_API-4285F4?style=flat-square&logo=googlegemini&logoColor=white)](#-tech-stack)
+[![WhatsApp](https://img.shields.io/badge/Delivery-WhatsApp_Business_API-25D366?style=flat-square&logo=whatsapp&logoColor=white)](#-tech-stack)
+[![React](https://img.shields.io/badge/Frontend-React_%2B_Tailwind-61DAFB?style=flat-square&logo=react&logoColor=black)](#-tech-stack)
+[![RAG](https://img.shields.io/badge/Architecture-RAG--Grounded-8E4162?style=flat-square)](#-architecture)
 
-## 🚀 Core Features (5 Modules)
-
-### 1. Entry / Onboarding
-- **Zero Mandatory Sign-Up**: No phone number, name, or email required.
-- **PWA Instant Access**: Scanned from the QR code inside Natchkin pads (`/?source=qr_pack`), loads instantly in browser with offline service worker support.
-- **Immediate Privacy Promise**: Bold, prominent reassurance on first open: *"Your data stays strictly on this device and never leaves unless you choose to show someone."*
-- **Optional Anonymous Profile**: Simple 2-question setup (age bracket and period stage) stored strictly in `localStorage`.
-
-### 2. "Ask" — Grounded Sister Q&A Chat
-- **WhatsApp-Style Bubbles**: Familiar, low-cognitive-load conversational UI.
-- **Hard-Coded Safety Shield (`server/rag/safetyFilter.ts`)**:
-  - Intercepts crisis keywords before any model invocation (self-harm, sexual abuse, assault, severe hemorrhage, toxic shock syndrome).
-  - Bypasses LLM generation entirely and returns an immediate, compassionate **Emergency Safety Card** with active, verified Indian helplines:
-    - **1098**: Childline India (24/7 free youth emergency)
-    - **181**: Women & Girls Helpline (24/7 crisis support)
-    - **14416**: Tele-MANAS (Govt of India 24/7 mental health counseling)
-    - **112**: National Emergency Dispatch
-- **Constrained RAG Pipeline (`server/rag/retrieval.ts` & `generator.ts`)**:
-  - TF-IDF and token-frequency semantic retrieval over a vetted 46+ Q&A adolescent health repository.
-  - Gemini Flash prompt strictly bounded to retrieve context: **never speculates, never diagnoses, and never concludes "PCOS"** (only "pattern worth discussing with a doctor").
-  - **Deterministic Curated Fallback**: Seamlessly answers with top vetted clinical advice if offline or without an API key.
-  - **Honest Fallback**: When out-of-domain questions are asked, admits uncertainty kindly and advises asking an adult/nurse.
-
-### 3. "Log" — 10-Second 3-Tap Tracker
-- **Strictly Silent & Tap-Only**: No typing, no voice (engineered for bathroom stalls).
-- **3-Tap Sequence**:
-  1. **Flow**: Spotting 💧 • Light 🩸 • Medium 🩸🩸 • Heavy 🩸🩸🩸
-  2. **Comfort & Pain**: 0 (None) • 1 (Mild) • 2 (Moderate) • 3 (Severe)
-  3. **Mood & Quick Signs**: Calm • Sensitive • Tired • Energetic • Anxious (+ 1-tap tags for Acne, Cramps, Bloating, Backache)
-- **Rule-Based Pattern Engine (`src/utils/patternEngine.ts`)**:
-  - Analyzes inter-cycle intervals across logged cycles.
-  - Flags if cycles fall outside 21–45 days across 3+ cycles, or if 2+ hormonal flags co-occur (e.g. 48-day intervals + persistent cystic acne).
-  - Non-diagnostic guardrail: framed as *"A pattern worth mentioning to a doctor"* with reassurance that adolescent bodies often take 2–3 years to stabilize.
-
-### 4. "Show Someone" — Teen-Initiated Summary Card
-- **Differentiating Feature**: Solves the awkwardness teens face when trying to talk to adults.
-- **Explicit Consent**: Never auto-shares or sends background alerts. Triggered only when the teen taps *"Create My Summary Card"*.
-- **Features**:
-  - **Audience Mode**: Tailored for *"Mom / Older Sister"* or *"Doctor / Clinic"*.
-  - **Visual Preview**: Clean metrics (average cycle length, dates, frequent symptoms, non-clinical pattern note).
-  - **Word-for-Word Conversation Scripts**: E.g., *"Hey Mom, my tracker showed some longer cycle gaps over the last few months. Can we visit a doctor to make sure my hormones are happy and learn how to manage cramps?"*
-  - **HTML5 Canvas PNG Export**: 1-tap download of a high-resolution share card for WhatsApp.
-  - **Hand-Over Mode**: Full-screen view designed to physically hand the phone to a parent or clinician.
-
-### 5. Home, Navigation & Quick Disguise
-- **3-Tab Navigation**: Home, Log Today, Ask Sister.
-- **Quick Disguise Button (Header)**: Instantly switches to an innocent Class 10 Science Revision Notes & Working Calculator screen if someone approaches the bathroom stall.
-- **Rhythm Wheel**: Calm progress arc tracking days since the last period and supportive daily self-care advice.
+</div>
 
 ---
 
-## 🛠️ Architecture & Tech Stack
+## 🌸 What Is This
 
-| Layer | Technology | Purpose |
-| :--- | :--- | :--- |
-| **Frontend** | React 19 + TypeScript + Vite | Blazing fast client-rendered PWA |
-| **Styling** | Tailwind CSS v3 | Warm cream, dusty rose, and plum palette |
-| **Icons** | Lucide React | High-contrast, friendly iconography |
-| **Canvas** | Native HTML5 Canvas API | High-resolution visual card image generator |
-| **Storage** | LocalStorage / IndexedDB | 100% on-device local encryption; zero tracking |
-| **Backend** | Express 5 + TypeScript (`tsx`) | API routing, safety shield, RAG pipeline |
-| **AI / RAG** | Gemini 2.5 Flash (`@google/genai`) | Constrained grounded generation |
-| **Vector / Retrieval** | Token TF-IDF + Cosine Overlap | Fast, deterministic matching over knowledge base |
+**Between Us** is not another period-tracking app. It's a private AI companion — delivered through a QR code inside every Natchkin pack — that turns a scared, silent question ("is this normal?") into a warm, accurate, judgment-free answer in seconds. No app to download. No account to create. No parent, sibling, or search history to worry about.
+
+It watches for patterns worth a doctor's attention — like early signs of PCOS/PCOD — without ever diagnosing. And when she's ready, it gives her the words to start that conversation herself.
+
+> *"The pad in her hand shouldn't be the end of the conversation. It should be the beginning of one."*
 
 ---
 
-## 📖 How to Run Locally
+## 🧭 The Problem
 
-### 1. Installation
-```bash
-npm install
-```
+Growing up brings enormous physical and emotional change — but most teenage girls in India have **no private space** to ask basic questions about their own bodies. Cultural stigma and thin sex-ed push them toward unreliable sources: search engines, peers, and social media.
 
-### 2. Development Mode
-Run both frontend (port 5173) and backend (port 3001) concurrently:
-```bash
-npm run dev
-```
+This creates two compounding harms:
 
-### 3. Production Build & Run
-```bash
-npm run build
-npm run start
-```
-The server will be live at `http://localhost:3001`.
+| Harm | Consequence |
+|---|---|
+| 🌀 **Misinformation fills the silence** | Normal puberty changes are met with unnecessary fear and shame |
+| ⏳ **Early warning signs go unnoticed** | Irregular cycles get dismissed as "just puberty" — PCOS/PCOD diagnosis is delayed by years internationally |
 
-### 4. Running Automated Verification Tests
-```bash
-npx tsx server/test-suite.ts
-```
-Runs 15 automated unit tests verifying the safety shield, retrieval engine, fallback generator, and pattern engine.
+**The white space:** every existing digital solution is run by an NGO or government body with *no physical product*. Every physical period-care brand has *no digital companion*. Nobody has connected "here's the pad in your hand" to "here's someone to talk to." That's the gap this project closes.
 
 ---
 
-## 🛡️ RAG Pipeline & Safety Details
+## 🔬 Research We Stand On
 
-```
-[User Question]
-       │
-       ▼
-┌───────────────────────────────────────────────┐
-│ 1. HARD-CODED SAFETY FILTER (safetyFilter.ts) │
-│ - Self-Harm / Suicide                         │
-│ - Abuse / Assault / Molestation               │
-│ - Acute Hemorrhage (soaking pad <1h, faint)   │
-│ - Toxic Shock Syndrome (tampon + high fever)  │
-└───────────────────────┬───────────────────────┘
-            │           │
-       [Matched]   [Clean / Safe]
-            │           │
-            ▼           ▼
-┌──────────────────┐ ┌───────────────────────────────────────────────┐
-│ Emergency Safety │ │ 2. HYBRID RETRIEVAL (retrieval.ts)            │
-│ Card (Bypasses   │ │ - Matches query against 46+ curated items     │
-│ LLM completely)  │ │ - BM25 / TF-IDF scoring + keyword boost       │
-└──────────────────┘ └───────────────────────┬───────────────────────┘
-                                             │
-                        ┌────────────────────┴────────────────────┐
-                        ▼                                         ▼
-            [Score < Threshold]                     [Confident Match Found]
-                        ▼                                         ▼
-┌──────────────────────────────────────┐     ┌──────────────────────────────────────┐
-│ 3. HONEST FALLBACK                   │     │ 4. CONSTRAINED GENERATION            │
-│ "I don't have verified notes on this │     │ - Strictly bounded to context        │
-│ topic yet. Here is how to ask a      │     │ - Tone: Empathetic Big Sister        │
-│ nurse or doctor..."                  │     │ - Guardrail: Never diagnose PCOS     │
-└──────────────────────────────────────┘     │ - Live Gemini Flash or Vetted Curated│
-                                             └──────────────────────────────────────┘
+This isn't a guess — it's built on a body of published, deployed evidence. We didn't reinvent the approach; we combined the parts that are already proven at scale.
+
+<table>
+<tr><td width="60%">
+
+**🌍 Proven at scale — Girl Effect's "Big Sis" network**
+WhatsApp chatbot for teen SRH questions, expanded across South Africa, India (*Bol Behen*, *Chhaa Jaa* — 7M+ girls reached), Kenya (*WAZZII*), and Tanzania (*Tujibebe*, delivered via IVR for feature phones). **1.5M+ users by 2024.**
+
+</td><td>
+
+📈 **13.5%** ↑ intended contraceptive use (India)
+📈 **19%** ↑ SRH knowledge (India)
+📈 **6%** ↑ actual contraceptive use (Kenya)
+
+</td></tr>
+<tr><td>
+
+**🇮🇳 Government-backed precedent — JustAsk!**
+AI WhatsApp platform by **UNFPA India + National Health Mission + Bayer AG**, launched Aug 2023 across Madhya Pradesh & Rajasthan, with direct handoff to government helplines.
+
+</td><td>
+
+Validates the WhatsApp-first, govt-referral model at national scale.
+
+</td></tr>
+</table>
+
+### 📄 Top Recent Papers (arXiv, 2026)
+
+| Paper | Venue | What It Proves |
+|---|---|---|
+| **["Designing Around Stigma: Human-Centered LLMs for Menstrual Health"](https://arxiv.org/abs/2604.06008)** | ACM CHI 2026 | A WhatsApp + RAG chatbot, grounded in WHO/UNICEF/NIH content, co-designed with real users — near-identical architecture to this project |
+| **["OpenBloom: A Question-Based LLM Tool for Stigma Reduction"](https://arxiv.org/abs/2602.00243)** | UIUC, 2026 | Proves *unguided* LLMs default to shallow, generic answers on sensitive topics — the direct justification for our retrieval-constrained, never-open-domain design rule |
+
+---
+
+##  Core Features
+
+| Feature | What It Does | Why It's Safe |
+|---|---|---|
+| 💬 **Ask** | RAG-grounded Q&A chat, warm tone, answers puberty & menstrual health questions | Constrained to a vetted knowledge base — **never** open-domain generation |
+| 👆 **Quick Log** | Silent 3-tap logging (flow / pain / mood) — built for a bathroom stall, not a desk | No voice, no typing, under 10 seconds |
+| 📊 **Pattern Watch** | Rule-based flag if cycle irregularity persists across 3+ cycles | Never says "PCOS" — only *"worth discussing with a doctor"* |
+| 🤍 **Show Someone** | Teen-initiated, shareable plain-language summary for a parent or doctor | Never auto-sent — always her choice, always her timing |
+| 🛑 **Safety Net** | Hardcoded keyword layer for self-harm, abuse, or severe symptoms | Bypasses the model entirely — fixed response + helpline, zero generation risk |
+
+---
+
+## 🏗️ Architecture
+
+```mermaid
+flowchart TD
+    A[📦 QR Code on Natchkin Pack] -->|scan| B[WhatsApp / PWA Entry]
+    B --> C{User Intent}
+    C -->|Ask a question| D[Safety Keyword Classifier]
+    D -->|🚩 Red flag detected| E[Fixed Safety Card + Helpline]
+    D -->|✅ Safe| F[RAG Retrieval Engine]
+    F --> G[(Curated Knowledge Base<br/>WHO · UNICEF · Natchkin Education)]
+    G --> H[Gemini API — Constrained Generation]
+    H --> I[Grounded Answer to User]
+    C -->|Log symptoms| J[3-Tap Quick Log]
+    J --> K[(Local/Firestore — Anonymous Session)]
+    K --> L{Pattern Rule Engine}
+    L -->|Irregularity detected| M[Gentle Nudge:<br/>Create a Summary?]
+    M -->|User opts in| N[🤍 Shareable Summary Card]
 ```
 
 ---
 
-## 📚 Extending the Knowledge Base
+## 🛠️ Tech Stack
 
-To add new adolescent health questions or regional adaptations (e.g. Hindi/Tamil/Bengali terms):
-1. Open `server/rag/knowledgeBase.ts`.
-2. Add a new `KnowledgeItem` object to the `KNOWLEDGE_BASE` array:
-```typescript
-{
-  id: 'unique-slug',
-  category: 'cramps_and_comfort', // or puberty_basics, hygiene_and_products, etc.
-  question: 'Primary question phrasing?',
-  aliases: ['alternative question phrasing', 'common typos'],
-  answer: 'Medically vetted answer in warm, older-sister language (1-2 short paragraphs).',
-  keyTakeaway: 'Single sentence core summary.',
-  doctorNote: 'Optional note on when to seek in-person clinical care.',
-  tags: ['keyword1', 'keyword2']
-}
-```
-3. Run `npx tsx server/test-suite.ts` to verify your new additions.
+| Layer | Choice | Why |
+|---|---|---|
+| Messaging | WhatsApp Business API via **Gupshup / Turn.io** | Same infra as JustAsk! & Bol Behen — proven at millions of users |
+| AI | **Gemini API**, RAG-only | Constrained to vetted sources, never free-form |
+| Frontend | **React + Tailwind** (PWA) | Installable, zero app-store dependency |
+| Backend | Node/Express or Firebase Functions | Lightweight, fast to ship |
+| Storage | Firebase Firestore, anonymous session keys | No personally identifying fields, ever |
+| Design | Poppins (display) + Nunito Sans (UI) | Rounded warmth up top, legibility underneath |
+
+---
+
+## 🔒 Safety & Privacy, By Design
+
+- ❌ No mandatory sign-up, no email, no phone number to start
+- ❌ No diagnosis, ever — patterns are flagged, never labeled
+- ❌ No automatic sharing — every disclosure is teen-initiated
+- ✅ Hardcoded, model-independent escalation for red-flag inputs
+- ✅ Local-first data, anonymous by default
+- ✅ One-tap "delete everything" — always visible, never buried
+
+---
+
+## 🗺️ Roadmap
+
+- [x] Brand identity & motion design
+- [x] Research validation (Girl Effect, JustAsk!, arXiv 2026 papers)
+- [x] RAG architecture design
+- [ ] WhatsApp Business API sandbox integration
+- [ ] Knowledge base seeding (Natchkin Education + WHO/UNICEF sources)
+- [ ] Safety keyword classifier
+- [ ] Pattern-watch rule engine
+- [ ] Pilot with Natchkin School Kit QR distribution
+
+---
+
+## 🤝 Contributing
+
+This project is being built for the **Code for Communities — Women in Tech Hackathon (Track 1: Adolescent Health & AI Navigation)**, in partnership with **Natchkin**. Issues and PRs are welcome — please read the safety guardrails above before proposing any change to the Ask or Safety Net flows.
+
+---
+
+## 📚 References
+
+1. Deva, S. et al. *"Designing Around Stigma: Human-Centered LLMs for Menstrual Health."* ACM CHI 2026. [arXiv:2604.06008](https://arxiv.org/abs/2604.06008)
+2. Hua, A., Daruka, A., Hong, Y., Sultana, S. *"OpenBloom: A Question-Based LLM Tool to Support Stigma Reduction in Reproductive Well-Being."* UIUC, 2026. [arXiv:2602.00243](https://arxiv.org/abs/2602.00243)
+3. Girl Effect — [Our Impact](https://www.girleffect.org/our-impact) (Big Sis, Bol Behen, WAZZII, Chhaa Jaa, Tujibebe)
+4. UNFPA India / National Health Mission / Bayer AG — *JustAsk! AI Chatbot in India*
+5. Ministry of Health & Family Welfare, Government of India — *Scheme for Promotion of Menstrual Hygiene*
+6. Clue / BioWink GmbH — *Irregular Cycles Feature* (PCOS risk flagging model)
+
+---
+
+## 📄 License
+
+MIT — build on this, remix it, take it further. If it helps one more girl ask the question she was too scared to ask, it did its job.
+
+<div align="center">
+
+---
+
+**Between Us** · *by Natchkin* · 🌸
+*Her questions. Her pace.*
+
+</div>
