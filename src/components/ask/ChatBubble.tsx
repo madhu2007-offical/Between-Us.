@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Sparkles, Stethoscope, BookOpen, Heart, FastForward } from 'lucide-react';
+import { Heart, Stethoscope, BookOpen, FastForward, Copy, Check } from 'lucide-react';
 import { ChatMessage } from '../../types';
 import { SafetyCard } from './SafetyCard';
 
@@ -19,6 +19,8 @@ export const ChatBubble: React.FC<ChatBubbleProps> = ({ message, isLatestSisterM
   const [isTyping, setIsTyping] = useState(
     isSister && isLatestSisterMessage
   );
+  const [copied, setCopied] = useState(false);
+  const [liked, setLiked] = useState(false);
 
   useEffect(() => {
     if (!isSister || !isLatestSisterMessage) {
@@ -27,7 +29,6 @@ export const ChatBubble: React.FC<ChatBubbleProps> = ({ message, isLatestSisterM
       return;
     }
 
-    // Split into words for natural typing rhythm
     const words = message.text.split(' ');
     let currentWordIndex = 0;
     setDisplayedText('');
@@ -41,7 +42,7 @@ export const ChatBubble: React.FC<ChatBubbleProps> = ({ message, isLatestSisterM
         setIsTyping(false);
         clearInterval(interval);
       }
-    }, 45); // 45ms per word feels natural and brisk
+    }, 40);
 
     return () => clearInterval(interval);
   }, [message.text, isSister, isLatestSisterMessage]);
@@ -49,6 +50,12 @@ export const ChatBubble: React.FC<ChatBubbleProps> = ({ message, isLatestSisterM
   const handleSkipTyping = () => {
     setDisplayedText(message.text);
     setIsTyping(false);
+  };
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(message.text);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 1800);
   };
 
   if (message.type === 'safety_card' && message.safetyData) {
@@ -62,80 +69,110 @@ export const ChatBubble: React.FC<ChatBubbleProps> = ({ message, isLatestSisterM
   return (
     <div className={`flex w-full ${isUser ? 'justify-end' : 'justify-start'} my-2`}>
       <div className={`max-w-[88%] space-y-1.5 ${isUser ? 'items-end' : 'items-start'}`}>
-        {/* Main Message Bubble */}
+        {/* Message Bubble */}
         <div
           onClick={isTyping ? handleSkipTyping : undefined}
-          className={`relative rounded-3xl p-4 text-xs sm:text-sm leading-relaxed transition-all ${
+          className={`relative rounded-[26px] p-4 text-xs sm:text-sm leading-relaxed transition-all ${
             isUser
-              ? 'bg-gradient-to-br from-plum-800 to-plum-900 text-cream-50 rounded-br-none shadow-soft'
-              : 'bg-white/95 backdrop-blur-sm text-plum-950 border border-blush-200/80 rounded-bl-none shadow-soft hover:border-blush-300'
+              ? 'bg-violet-primary text-white rounded-br-none shadow-soft font-medium'
+              : 'bg-white text-ink border border-cream-200 rounded-bl-none shadow-soft font-normal'
           } ${isTyping ? 'cursor-pointer' : ''}`}
         >
           {/* Sister Header */}
           {!isUser && (
-            <div className="flex items-center justify-between space-x-1.5 mb-2 pb-1.5 border-b border-blush-100 text-[11px] font-bold text-plum-800">
+            <div className="flex items-center justify-between space-x-1.5 mb-2 pb-1.5 border-b border-cream-100 text-[11px] font-bold text-ink">
               <div className="flex items-center space-x-1.5">
-                <span className="w-5 h-5 rounded-full bg-blush-100 text-blush-500 flex items-center justify-center text-[10px]">
+                <span className="w-5 h-5 rounded-full bg-violet-100 text-violet-primary flex items-center justify-center text-[10px]">
                   🌸
                 </span>
                 <span>Between Us Sister</span>
               </div>
 
               {isTyping ? (
-                <span className="text-[10px] text-blush-500 flex items-center space-x-1 animate-pulse font-medium">
+                <span className="text-[10px] text-coral-primary flex items-center space-x-1 font-semibold animate-pulse">
                   <span>typing</span>
-                  <span className="inline-block w-1.5 h-1.5 rounded-full bg-blush-400 animate-bounce" />
+                  <span className="inline-block w-1.5 h-1.5 rounded-full bg-coral-primary animate-bounce" />
                 </span>
               ) : (
-                <span className="text-[9px] bg-blush-50 text-plum-600 px-2 py-0.5 rounded-full font-semibold border border-blush-100">
-                  {message.source === 'gemini_grounded' ? 'AI Sister' : 'Vetted Library'}
+                <span className="text-[9px] bg-cream-50 text-ink/70 px-2 py-0.5 rounded-full font-bold border border-cream-200">
+                  {message.source === 'gemini_grounded' ? 'AI Grounded' : 'Vetted Notes'}
                 </span>
               )}
             </div>
           )}
 
-          {/* Text Content with Real-time typewriter */}
+          {/* Text Content */}
           <div className="whitespace-pre-line font-medium leading-relaxed">
             {displayedText}
             {isTyping && (
-              <span className="inline-block w-1.5 h-4 ml-1 bg-blush-400 animate-pulse align-middle rounded-full" />
+              <span className="inline-block w-1.5 h-4 ml-1 bg-coral-primary animate-pulse align-middle rounded-full" />
             )}
           </div>
 
-          {/* Skip button hint if typing */}
+          {/* Skip hint */}
           {isTyping && (
-            <div className="mt-2 text-[10px] text-dustyrose-400 flex items-center space-x-1 font-semibold">
+            <div className="mt-2 text-[10px] text-coral-600 flex items-center space-x-1 font-bold">
               <FastForward size={11} />
-              <span>Tap bubble to show full answer</span>
+              <span>Tap bubble to read immediately</span>
             </div>
           )}
 
-          {/* Key Takeaway Chip (appears when finished typing) */}
+          {/* Key Takeaway Chip */}
           {!isTyping && message.keyTakeaway && (
-            <div className="mt-3 p-2.5 bg-blush-50/80 border border-blush-200/80 rounded-2xl text-[11px] text-plum-900 flex items-start space-x-2 animate-in fade-in duration-300">
-              <Heart size={13} className="text-blush-500 shrink-0 mt-0.5 fill-blush-400" />
+            <div className="mt-3 p-2.5 bg-coral-50 border border-coral-200/80 rounded-2xl text-[11px] text-ink flex items-start space-x-2 animate-in fade-in duration-300">
+              <Heart size={13} className="text-coral-primary shrink-0 mt-0.5 fill-coral-primary" />
               <span><strong>Quick Takeaway:</strong> {message.keyTakeaway}</span>
             </div>
           )}
 
           {/* Doctor Note */}
           {!isTyping && message.doctorAdvice && (
-            <div className="mt-2 p-2.5 bg-amber-50/90 border border-amber-200/80 rounded-2xl text-[11px] text-amber-900 flex items-start space-x-2 animate-in fade-in duration-300">
-              <Stethoscope size={13} className="text-amber-700 shrink-0 mt-0.5" />
+            <div className="mt-2 p-2.5 bg-amber-50 border border-amber-200 rounded-2xl text-[11px] text-amber-950 flex items-start space-x-2 animate-in fade-in duration-300">
+              <Stethoscope size={13} className="text-safety-amber shrink-0 mt-0.5" />
               <span><strong>Doctor Note:</strong> {message.doctorAdvice}</span>
             </div>
           )}
 
-          {/* Timestamp */}
-          <div className={`text-[10px] mt-2 text-right ${isUser ? 'text-dustyrose-200' : 'text-plum-400'}`}>
-            {new Date(message.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-          </div>
+          {/* Footer Controls: Timestamp, Copy, and Reaction */}
+          {!isTyping && !isUser && (
+            <div className="mt-2.5 pt-2 border-t border-cream-100 flex items-center justify-between text-[10px] text-ink/50">
+              <div className="flex items-center space-x-3">
+                <button
+                  onClick={handleCopy}
+                  className="flex items-center space-x-1 text-ink/60 hover:text-ink transition-colors font-semibold"
+                >
+                  {copied ? <Check size={11} className="text-sage-700" /> : <Copy size={11} />}
+                  <span>{copied ? 'Copied' : 'Copy'}</span>
+                </button>
+
+                <button
+                  onClick={() => setLiked(!liked)}
+                  className={`flex items-center space-x-1 transition-colors font-semibold ${
+                    liked ? 'text-coral-primary' : 'text-ink/60 hover:text-coral-primary'
+                  }`}
+                >
+                  <Heart size={11} className={liked ? 'fill-coral-primary' : ''} />
+                  <span>{liked ? 'Helpful 🌸' : 'Helpful?'}</span>
+                </button>
+              </div>
+
+              <span>
+                {new Date(message.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+              </span>
+            </div>
+          )}
+
+          {isUser && (
+            <div className="text-[10px] mt-1.5 text-right text-white/75 font-medium">
+              {new Date(message.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+            </div>
+          )}
         </div>
 
-        {/* Citations Snippets for transparency */}
+        {/* Citations Snippet */}
         {!isTyping && message.citations && message.citations.length > 0 && (
-          <div className="flex items-center space-x-1 text-[10px] text-plum-600 pl-2">
-            <BookOpen size={11} className="text-dustyrose-400" />
+          <div className="flex items-center space-x-1 text-[10px] text-ink/50 pl-2">
+            <BookOpen size={11} className="text-violet-primary" />
             <span>Verified from: {message.citations.map(c => c.question).slice(0, 1).join(', ')}</span>
           </div>
         )}
