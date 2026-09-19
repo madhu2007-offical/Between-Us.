@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="./assets/banner.png" alt="<img width="1254" height="716" alt="ChatGPT Image Sep 19, 2026, 12_08_39 PM" src="https://github.com/user-attachments/assets/4004afe8-b3d2-45ca-95da-307bbac86749" />
+<img width="1254" height="716" alt="ChatGPT Image Sep 19, 2026, 12_08_39 PM" src="https://github.com/user-attachments/assets/4004afe8-b3d2-45ca-95da-307bbac86749" />
 " width="480"/>
 
 ### *Real Questions. Better Answers.*
