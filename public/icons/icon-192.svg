@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192" width="192" height="192">
+  <defs>
+    <linearGradient id="plumGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4A2040" />
+      <stop offset="100%" stop-color="#381630" />
+    </linearGradient>
+    <linearGradient id="roseGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F3B8AD" />
+      <stop offset="100%" stop-color="#D98880" />
+    </linearGradient>
+  </defs>
+  <rect width="192" height="192" rx="42" fill="url(#plumGrad)" />
+  <!-- Gentle protective organic interlocking petals / circle -->
+  <circle cx="96" cy="96" r="62" fill="none" stroke="#642C53" stroke-width="4" stroke-dasharray="6 4" />
+  <!-- Calming heart/seed shape in warm dusty rose -->
+  <path d="M96 68 C80 50, 52 64, 52 86 C52 110, 84 130, 96 142 C108 130, 140 110, 140 86 C140 64, 112 50, 96 68 Z" fill="url(#roseGrad)" opacity="0.95"/>
+  <!-- Gentle inner glow -->
+  <circle cx="96" cy="94" r="14" fill="#FFFDF9" opacity="0.85" />
+</svg>
