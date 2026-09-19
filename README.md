@@ -21,7 +21,7 @@
 
 ---
 
-## 🌸 What Is This
+##  What Is This
 
 **Between Us** is not another period-tracking app. It's a private AI companion — delivered through a QR code inside every Natchkin pack — that turns a scared, silent question ("is this normal?") into a warm, accurate, judgment-free answer in seconds. No app to download. No account to create. No parent, sibling, or search history to worry about.
 
@@ -31,7 +31,7 @@ It watches for patterns worth a doctor's attention — like early signs of PCOS/
 
 ---
 
-## 🧭 The Problem
+##  The Problem
 
 Growing up brings enormous physical and emotional change — but most teenage girls in India have **no private space** to ask basic questions about their own bodies. Cultural stigma and thin sex-ed push them toward unreliable sources: search engines, peers, and social media.
 
@@ -46,14 +46,14 @@ This creates two compounding harms:
 
 ---
 
-## 🔬 Research We Stand On
+##  Research We Stand On
 
 This isn't a guess — it's built on a body of published, deployed evidence. We didn't reinvent the approach; we combined the parts that are already proven at scale.
 
 <table>
 <tr><td width="60%">
 
-**🌍 Proven at scale — Girl Effect's "Big Sis" network**
+** Proven at scale — Girl Effect's "Big Sis" network**
 WhatsApp chatbot for teen SRH questions, expanded across South Africa, India (*Bol Behen*, *Chhaa Jaa* — 7M+ girls reached), Kenya (*WAZZII*), and Tanzania (*Tujibebe*, delivered via IVR for feature phones). **1.5M+ users by 2024.**
 
 </td><td>
@@ -75,7 +75,7 @@ Validates the WhatsApp-first, govt-referral model at national scale.
 </td></tr>
 </table>
 
-### 📄 Top Recent Papers (arXiv, 2026)
+###  Top Recent Papers (arXiv, 2026)
 
 | Paper | Venue | What It Proves |
 |---|---|---|
@@ -88,11 +88,11 @@ Validates the WhatsApp-first, govt-referral model at national scale.
 
 | Feature | What It Does | Why It's Safe |
 |---|---|---|
-| 💬 **Ask** | RAG-grounded Q&A chat, warm tone, answers puberty & menstrual health questions | Constrained to a vetted knowledge base — **never** open-domain generation |
-| 👆 **Quick Log** | Silent 3-tap logging (flow / pain / mood) — built for a bathroom stall, not a desk | No voice, no typing, under 10 seconds |
-| 📊 **Pattern Watch** | Rule-based flag if cycle irregularity persists across 3+ cycles | Never says "PCOS" — only *"worth discussing with a doctor"* |
-| 🤍 **Show Someone** | Teen-initiated, shareable plain-language summary for a parent or doctor | Never auto-sent — always her choice, always her timing |
-| 🛑 **Safety Net** | Hardcoded keyword layer for self-harm, abuse, or severe symptoms | Bypasses the model entirely — fixed response + helpline, zero generation risk |
+|  **Ask** | RAG-grounded Q&A chat, warm tone, answers puberty & menstrual health questions | Constrained to a vetted knowledge base — **never** open-domain generation |
+|  **Quick Log** | Silent 3-tap logging (flow / pain / mood) — built for a bathroom stall, not a desk | No voice, no typing, under 10 seconds |
+|  **Pattern Watch** | Rule-based flag if cycle irregularity persists across 3+ cycles | Never says "PCOS" — only *"worth discussing with a doctor"* |
+|  **Show Someone** | Teen-initiated, shareable plain-language summary for a parent or doctor | Never auto-sent — always her choice, always her timing |
+|  **Safety Net** | Hardcoded keyword layer for self-harm, abuse, or severe symptoms | Bypasses the model entirely — fixed response + helpline, zero generation risk |
 
 ---
 
@@ -103,8 +103,8 @@ flowchart TD
     A[📦 QR Code on Natchkin Pack] -->|scan| B[WhatsApp / PWA Entry]
     B --> C{User Intent}
     C -->|Ask a question| D[Safety Keyword Classifier]
-    D -->|🚩 Red flag detected| E[Fixed Safety Card + Helpline]
-    D -->|✅ Safe| F[RAG Retrieval Engine]
+    D -->| Red flag detected| E[Fixed Safety Card + Helpline]
+    D -->| Safe| F[RAG Retrieval Engine]
     F --> G[(Curated Knowledge Base<br/>WHO · UNICEF · Natchkin Education)]
     G --> H[Gemini API — Constrained Generation]
     H --> I[Grounded Answer to User]
@@ -130,7 +130,7 @@ flowchart TD
 
 ---
 
-## 🔒 Safety & Privacy, By Design
+##  Safety & Privacy, By Design
 
 - ❌ No mandatory sign-up, no email, no phone number to start
 - ❌ No diagnosis, ever — patterns are flagged, never labeled
@@ -141,7 +141,7 @@ flowchart TD
 
 ---
 
-## 🗺️ Roadmap
+##  Roadmap
 
 - [x] Brand identity & motion design
 - [x] Research validation (Girl Effect, JustAsk!, arXiv 2026 papers)
@@ -160,7 +160,7 @@ This project is being built for the **Code for Communities — Women in Tech Hac
 
 ---
 
-## 📚 References
+##  References
 
 1. Deva, S. et al. *"Designing Around Stigma: Human-Centered LLMs for Menstrual Health."* ACM CHI 2026. [arXiv:2604.06008](https://arxiv.org/abs/2604.06008)
 2. Hua, A., Daruka, A., Hong, Y., Sultana, S. *"OpenBloom: A Question-Based LLM Tool to Support Stigma Reduction in Reproductive Well-Being."* UIUC, 2026. [arXiv:2602.00243](https://arxiv.org/abs/2602.00243)
