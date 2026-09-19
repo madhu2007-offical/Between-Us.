@@ -109,16 +109,28 @@ export const SettingsModal: React.FC = () => {
           </div>
         </div>
 
-        {/* Demo Data & Data Reset Controls */}
-        <div className="space-y-2 pt-1 border-t border-cream-100">
+        {/* Demo Data & Replay Opening Experience */}
+        <div className="space-y-2 pt-1 border-t border-cream-200">
+          <button
+            onClick={() => {
+              updateUserProfile({ hasCompletedOnboarding: false });
+              setSettingsOpen(false);
+              window.location.reload();
+            }}
+            className="w-full py-2.5 px-3 bg-white border border-cream-300 hover:bg-cream-100 text-ink font-semibold text-xs rounded-xl flex items-center justify-center space-x-1.5 transition-all"
+          >
+            <Sparkles size={14} className="text-violet-primary" />
+            <span>Replay Brand Opening & Welcome</span>
+          </button>
+
           <button
             onClick={() => {
               loadSampleDemoData();
               setSettingsOpen(false);
             }}
-            className="w-full py-2.5 px-3 bg-white border border-cream-300 hover:bg-cream-100 text-plum-900 font-semibold text-xs rounded-xl flex items-center justify-center space-x-1.5 transition-all"
+            className="w-full py-2.5 px-3 bg-white border border-cream-300 hover:bg-cream-100 text-ink font-semibold text-xs rounded-xl flex items-center justify-center space-x-1.5 transition-all"
           >
-            <RotateCcw size={14} className="text-plum-600" />
+            <RotateCcw size={14} className="text-coral-primary" />
             <span>Load 3-Cycle Demo Data (For Testing)</span>
           </button>
 

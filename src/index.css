@@ -2,18 +2,27 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --violet-primary: #A67FD7;
+  --coral-primary: #F885A5;
+  --overlap-deep: #8D63B1;
+  --base-cream: #EBE4E2;
+  --ink: #2C2523;
+  --safety-amber: #C97A3E;
+}
+
 @layer base {
   body {
     margin: 0;
     padding: 0;
     -webkit-tap-highlight-color: transparent;
     user-select: none;
-    background-color: #F8F5F1;
-    color: #381630;
-    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: var(--base-cream);
+    color: var(--ink);
+    font-family: 'Nunito Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   }
 
-  /* Custom subtle scrollbar */
+  /* Subtle scrollbar */
   ::-webkit-scrollbar {
     width: 4px;
     height: 4px;
@@ -22,7 +31,7 @@
     background: transparent;
   }
   ::-webkit-scrollbar-thumb {
-    background: #E7D2E0;
+    background: #CEC0BC;
     border-radius: 4px;
   }
 }
@@ -36,7 +45,7 @@
   scrollbar-width: none;
 }
 
-/* Safe area bottom padding for iPhone/Android notches */
+/* Safe area bottom padding for mobile notches */
 .pb-safe {
   padding-bottom: env(safe-area-inset-bottom, 8px);
 }
