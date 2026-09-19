@@ -70,9 +70,9 @@ export const PatternAlert: React.FC<PatternAlertProps> = ({ insight, onOpenSumma
       {isDoctorNotice && (
         <button
           onClick={onOpenSummary}
-          className="w-full py-2.5 px-3 bg-gradient-to-r from-plum-800 to-plum-900 hover:from-plum-900 hover:to-plum-950 active:scale-98 text-cream-50 font-bold text-xs rounded-2xl flex items-center justify-center space-x-2 shadow-sm transition-all"
+          className="w-full py-2.5 px-3 bg-gradient-to-r from-violet-800 to-violet-900 hover:from-violet-900 hover:to-black active:scale-98 text-white font-bold text-xs rounded-2xl flex items-center justify-center space-x-2 shadow-sm transition-all"
         >
-          <HeartHandshake size={15} className="text-blush-300" />
+          <HeartHandshake size={15} className="text-coral-300" />
           <span>Prepare Summary for Mom or Doctor</span>
           <ChevronRight size={14} />
         </button>

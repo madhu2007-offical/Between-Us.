@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useApp } from './context/AppContext';
 import { Header } from './components/layout/Header';
 import { Navigation } from './components/layout/Navigation';
@@ -18,9 +18,21 @@ export const App: React.FC = () => {
 
   // First-Contact Stage Management
   // 'video' -> 'transition' -> 'welcome' -> 'onboarding' -> 'app'
-  const [openingStage, setOpeningStage] = useState<'video' | 'transition' | 'welcome' | 'onboarding' | 'app'>(
-    profile.hasCompletedOnboarding ? 'app' : 'video'
-  );
+  const [openingStage, setOpeningStage] = useState<'video' | 'transition' | 'welcome' | 'onboarding' | 'app'>(() => {
+    if (typeof window !== 'undefined') {
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get('intro') === '1' || urlParams.get('intro') === 'true') {
+        return 'video';
+      }
+    }
+    return profile.hasCompletedOnboarding ? 'app' : 'video';
+  });
+
+  useEffect(() => {
+    const handleReplay = () => setOpeningStage('video');
+    window.addEventListener('replay-brand-intro', handleReplay);
+    return () => window.removeEventListener('replay-brand-intro', handleReplay);
+  }, []);
 
   // If Camouflage Mode is activated (for privacy in bathroom stall or home),
   // immediately show the innocuous revision notes & calculator screen!

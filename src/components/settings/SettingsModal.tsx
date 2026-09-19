@@ -113,14 +113,13 @@ export const SettingsModal: React.FC = () => {
         <div className="space-y-2 pt-1 border-t border-cream-200">
           <button
             onClick={() => {
-              updateUserProfile({ hasCompletedOnboarding: false });
               setSettingsOpen(false);
-              window.location.reload();
+              window.dispatchEvent(new CustomEvent('replay-brand-intro'));
             }}
-            className="w-full py-2.5 px-3 bg-white border border-cream-300 hover:bg-cream-100 text-ink font-semibold text-xs rounded-xl flex items-center justify-center space-x-1.5 transition-all"
+            className="w-full py-2.5 px-3 bg-white border border-cream-300 hover:bg-cream-100 text-ink font-semibold text-xs rounded-xl flex items-center justify-center space-x-1.5 transition-all shadow-xs active:scale-98"
           >
             <Sparkles size={14} className="text-violet-primary" />
-            <span>Replay Brand Opening & Welcome</span>
+            <span>Watch Brand Logo Animation & Intro</span>
           </button>
 
           <button

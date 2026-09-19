@@ -6,21 +6,25 @@ interface BrandVideoIntroProps {
 
 export const BrandVideoIntro: React.FC<BrandVideoIntroProps> = ({ onComplete }) => {
   const [showSkip, setShowSkip] = useState(false);
-  const [phase, setPhase] = useState<'drift' | 'converge' | 'sparkle' | 'lockup'>('drift');
+  const [phase, setPhase] = useState<'enter' | 'converge' | 'sparkle' | 'lockup'>('enter');
 
   useEffect(() => {
-    // Reveal subtle skip button strictly after 3.0 seconds
+    // Reveal visible skip button after 2.5 seconds
     const skipTimer = setTimeout(() => {
       setShowSkip(true);
-    }, 3000);
+    }, 2500);
 
-    // Choreographed animation sequence matching brand video (0:00–0:10)
-    const t1 = setTimeout(() => setPhase('converge'), 1500);
-    const t2 = setTimeout(() => setPhase('sparkle'), 3800);
-    const t3 = setTimeout(() => setPhase('lockup'), 6200);
+    // Choreographed animation sequence matching official brand logo:
+    // 0.0s - 1.2s: Gentle entrance & float
+    // 1.2s - 3.2s: Converge into the tender embrace
+    // 3.2s - 5.2s: Luminous 4-pointed sparkle ignites and radiates
+    // 5.2s - 8.8s: Exact brand lockup resolves cleanly
+    const t1 = setTimeout(() => setPhase('converge'), 1200);
+    const t2 = setTimeout(() => setPhase('sparkle'), 3200);
+    const t3 = setTimeout(() => setPhase('lockup'), 5200);
     const tEnd = setTimeout(() => {
       onComplete();
-    }, 9500);
+    }, 8800);
 
     return () => {
       clearTimeout(skipTimer);
@@ -32,118 +36,145 @@ export const BrandVideoIntro: React.FC<BrandVideoIntroProps> = ({ onComplete }) 
   }, [onComplete]);
 
   return (
-    <div className="fixed inset-0 z-50 bg-base-cream flex flex-col items-center justify-center overflow-hidden font-sans select-none">
-      {/* Ambient soft background particle field */}
+    <div
+      onClick={() => showSkip && onComplete()}
+      className="fixed inset-0 z-50 bg-[#FAF6F6] flex flex-col items-center justify-center overflow-hidden font-sans select-none"
+    >
+      {/* Soft ambient background glow */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/4 left-1/3 w-72 h-72 rounded-full bg-violet-primary/10 blur-3xl animate-pulse" />
-        <div className="absolute bottom-1/3 right-1/4 w-80 h-80 rounded-full bg-coral-primary/10 blur-3xl animate-pulse" style={{ animationDelay: '1.2s' }} />
+        <div className="absolute top-1/4 left-1/4 w-80 h-80 rounded-full bg-[#9B72CF]/10 blur-3xl animate-pulse" />
+        <div
+          className="absolute bottom-1/4 right-1/4 w-80 h-80 rounded-full bg-[#F77F98]/10 blur-3xl animate-pulse"
+          style={{ animationDelay: '1s' }}
+        />
       </div>
 
-      {/* Main Vector Motion Canvas (The Brand Mark) */}
-      <div className="relative w-72 h-72 flex items-center justify-center">
-        {/* Left Figure: Violet (Older Sister / Guidance) */}
-        <div
-          className={`absolute transition-all duration-[2200ms] ease-ribbon-morph ${
-            phase === 'drift'
-              ? 'transform -translate-x-14 -translate-y-4 opacity-70 scale-90'
-              : phase === 'converge' || phase === 'sparkle' || phase === 'lockup'
-              ? 'transform -translate-x-4 translate-y-0 opacity-100 scale-100'
-              : ''
-          }`}
-        >
-          <svg width="120" height="150" viewBox="0 0 120 150" fill="none">
-            {/* Violet Head */}
-            <circle cx="68" cy="38" r="28" fill="#A67FD7" />
-            {/* Violet Body Ribbon */}
-            <path
-              d="M68 70 C40 70, 20 95, 20 124 C20 150, 60 155, 90 135 C95 120, 95 90, 68 70 Z"
-              fill="#A67FD7"
-            />
-          </svg>
-        </div>
-
-        {/* Right Figure: Coral-Pink (Her / Personal) */}
-        <div
-          className={`absolute transition-all duration-[2200ms] ease-ribbon-morph ${
-            phase === 'drift'
-              ? 'transform translate-x-14 translate-y-4 opacity-70 scale-90'
-              : phase === 'converge' || phase === 'sparkle' || phase === 'lockup'
-              ? 'transform translate-x-5 translate-y-2 opacity-100 scale-100'
-              : ''
-          }`}
-        >
-          <svg width="120" height="150" viewBox="0 0 120 150" fill="none">
-            {/* Coral Head */}
-            <circle cx="52" cy="44" r="24" fill="#F885A5" />
-            {/* Coral Body Ribbon */}
-            <path
-              d="M52 72 C78 72, 96 95, 96 122 C96 148, 58 152, 30 134 C26 120, 28 92, 52 72 Z"
-              fill="#F885A5"
-            />
-          </svg>
-        </div>
-
-        {/* Overlap Connection Blend (#8D63B1) */}
-        {(phase === 'converge' || phase === 'sparkle' || phase === 'lockup') && (
-          <div className="absolute inset-0 flex items-center justify-center pointer-events-none transition-opacity duration-1000">
-            <svg width="60" height="70" viewBox="0 0 60 70" fill="none" className="opacity-45 mix-blend-multiply">
+      {/* Main Motion Canvas: Exact geometry matching media_1789803032883.png */}
+      <div className="relative w-80 h-80 flex items-center justify-center">
+        {/* Animated Vector Figures */}
+        <div className="relative w-72 h-64 flex items-center justify-center">
+          {/* Left Figure: Violet Older Sister (#9B72CF) */}
+          <div
+            className={`absolute transition-all duration-[1600ms] ease-out ${
+              phase === 'enter'
+                ? 'transform -translate-x-16 -translate-y-4 opacity-40 scale-90'
+                : 'transform translate-x-0 translate-y-0 opacity-100 scale-100'
+            }`}
+          >
+            <svg width="130" height="170" viewBox="0 0 130 170" fill="none">
+              {/* Violet Head Circle */}
+              <circle cx="80" cy="40" r="32" fill="#9B72CF" />
+              {/* Violet Smooth Teardrop Body */}
               <path
-                d="M15 15 C35 25, 45 45, 30 65 C20 50, 15 35, 15 15 Z"
-                fill="#8D63B1"
+                d="M78 72 C50 72, 22 98, 22 135 C22 165, 60 170, 95 148 C105 130, 105 95, 78 72 Z"
+                fill="#9B72CF"
               />
             </svg>
           </div>
-        )}
 
-        {/* The Emotional Peak: The Brilliant 4-Pointed Sparkle */}
-        <div
-          className={`absolute z-20 transition-all duration-1000 ease-sparkle-bloom ${
-            phase === 'sparkle' || phase === 'lockup'
-              ? 'opacity-100 scale-100'
-              : 'opacity-0 scale-50'
-          }`}
-        >
-          <div className="relative flex items-center justify-center">
-            {/* Pulsing Light Aura */}
-            <div className="absolute w-20 h-20 bg-white/70 rounded-full blur-xl animate-ping opacity-60" />
-            
-            {/* Crisp 4-Pointed Diamond Star */}
-            <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+          {/* Right Figure: Coral-Pink Teen Girl (#F77F98) */}
+          <div
+            className={`absolute transition-all duration-[1600ms] ease-out ${
+              phase === 'enter'
+                ? 'transform translate-x-16 translate-y-4 opacity-40 scale-90'
+                : 'transform translate-x-0 translate-y-0 opacity-100 scale-100'
+            }`}
+          >
+            <svg width="130" height="170" viewBox="0 0 130 170" fill="none">
+              {/* Coral Head Circle (slightly smaller) */}
+              <circle cx="50" cy="48" r="28" fill="#F77F98" />
+              {/* Coral Smooth Teardrop Body */}
               <path
-                d="M24 2 C24 14, 34 24, 46 24 C34 24, 24 34, 24 46 C24 34, 14 24, 2 24 C14 24, 24 14, 24 2 Z"
-                fill="#A67FD7"
-              />
-              <path
-                d="M24 10 C24 18, 30 24, 38 24 C30 24, 24 30, 24 38 C24 30, 18 24, 10 24 C18 24, 24 18, 24 10 Z"
-                fill="#FFFFFF"
+                d="M52 76 C80 76, 108 100, 108 135 C108 165, 70 170, 35 148 C25 130, 25 98, 52 76 Z"
+                fill="#F77F98"
               />
             </svg>
           </div>
+
+          {/* Center Overlap Meeting Lens (#7B5299 with multiply blend) */}
+          <div
+            className={`absolute transition-opacity duration-1000 ${
+              phase === 'converge' || phase === 'sparkle' || phase === 'lockup'
+                ? 'opacity-85'
+                : 'opacity-0'
+            }`}
+          >
+            <svg width="60" height="60" viewBox="0 0 60 60" fill="none">
+              <path
+                d="M30 15 C45 28, 45 45, 30 55 C15 45, 15 28, 30 15 Z"
+                fill="#7B5299"
+                style={{ mixBlendMode: 'multiply' }}
+              />
+            </svg>
+          </div>
+
+          {/* Emotional Heart Peak: The 4-Pointed Sparkle Star */}
+          <div
+            className={`absolute z-20 transition-all duration-700 ease-out ${
+              phase === 'sparkle' || phase === 'lockup'
+                ? 'opacity-100 scale-100'
+                : 'opacity-0 scale-0'
+            }`}
+          >
+            <div className="relative flex items-center justify-center">
+              {/* Pulsing Luminous Light Ring */}
+              <div className="absolute w-16 h-16 bg-[#B294DC]/40 rounded-full blur-md animate-ping" />
+              
+              {/* 4-Pointed Star Diamond matching the logo exactly */}
+              <svg width="44" height="44" viewBox="0 0 44 44" fill="none">
+                <path
+                  d="M22 2 C22 13, 31 22, 42 22 C31 22, 22 31, 22 42 C22 31, 13 22, 2 22 C13 22, 22 13, 22 2 Z"
+                  fill="#B294DC"
+                />
+                <circle cx="22" cy="22" r="3" fill="#FFFFFF" />
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        {/* Phase 4 Lockup: Seamless Overlay of the Official High-Res Artwork */}
+        <div
+          className={`absolute inset-0 flex items-center justify-center transition-opacity duration-1000 pointer-events-none ${
+            phase === 'lockup' ? 'opacity-100' : 'opacity-0'
+          }`}
+        >
+          <img
+            src="/logo.png"
+            alt="Between Us by Natchkin"
+            className="w-full h-auto object-contain max-h-72"
+          />
         </div>
       </div>
 
-      {/* Brand Lockup & Tagline (Fades in during second half of the video) */}
+      {/* Animated Wordmark & Tagline below */}
       <div
-        className={`text-center space-y-2.5 transition-all duration-1000 ease-out mt-4 ${
-          phase === 'lockup' ? 'opacity-100 transform translate-y-0' : 'opacity-0 transform translate-y-3'
+        className={`text-center space-y-2 transition-all duration-1000 ease-out mt-2 ${
+          phase === 'sparkle' || phase === 'lockup'
+            ? 'opacity-100 transform translate-y-0'
+            : 'opacity-0 transform translate-y-4'
         }`}
       >
-        <h1 className="font-display text-display text-ink tracking-tight font-extrabold">
-          between <span className="text-coral-primary">us</span>
+        <h1 className="font-display text-4xl text-[#3A2A57] tracking-tight font-extrabold flex items-center justify-center space-x-2">
+          <span>between</span>
+          <span className="text-[#F77F98]">us</span>
         </h1>
-        <p className="font-body text-caption tracking-widest text-ink/70 uppercase font-semibold">
+        <p className="text-xs tracking-[0.25em] text-[#3A2A57]/80 uppercase font-bold">
           Real Questions. Better Answers.
         </p>
       </div>
 
-      {/* Subtle Skip Button: Strictly invisible for first 3.0 seconds, then gently fades in */}
+      {/* Clean, visible skip button */}
       {showSkip && (
         <button
-          onClick={onComplete}
-          className="absolute bottom-8 right-8 font-body text-caption text-ink/60 hover:text-ink transition-all duration-500 py-1.5 px-3 rounded-full border border-ink/10 hover:border-ink/20 active:scale-95 animate-in fade-in"
-          aria-label="Skip brand video intro"
+          onClick={(e) => {
+            e.stopPropagation();
+            onComplete();
+          }}
+          className="absolute bottom-8 right-6 text-xs font-bold text-ink/80 bg-white/95 hover:bg-white hover:text-ink transition-all py-2 px-4 rounded-full border border-cream-300 shadow-sm active:scale-95 flex items-center space-x-1"
+          aria-label="Skip brand intro"
         >
-          Skip Intro →
+          <span>Skip to app</span>
+          <span>→</span>
         </button>
       )}
     </div>

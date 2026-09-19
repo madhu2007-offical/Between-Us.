@@ -147,19 +147,19 @@ export const RhythmWheel: React.FC<RhythmWheelProps> = ({ stats, onLogClick }) =
             <span>{currentPhase.name}</span>
           </div>
 
-          <div className="text-xs text-plum-800 font-medium">
+          <div className="text-xs text-ink font-semibold">
             {currentPhase.tip}
           </div>
 
           {/* Mini visual indicator */}
           <div className="pt-1">
-            <div className="flex items-center justify-between text-[10px] text-plum-600 font-bold mb-1">
+            <div className="flex items-center justify-between text-[11px] text-ink/80 font-extrabold mb-1">
               <span>Cycle Progress</span>
               <span>{progressPercent}%</span>
             </div>
-            <div className="w-full h-2 bg-blush-100 rounded-full overflow-hidden">
+            <div className="w-full h-2 bg-cream-200 rounded-full overflow-hidden">
               <div
-                className="h-full bg-gradient-to-r from-blush-400 to-plum-600 rounded-full transition-all duration-500"
+                className="h-full bg-gradient-to-r from-coral-primary to-violet-primary rounded-full transition-all duration-500"
                 style={{ width: `${progressPercent}%` }}
               />
             </div>
@@ -168,13 +168,13 @@ export const RhythmWheel: React.FC<RhythmWheelProps> = ({ stats, onLogClick }) =
       </div>
 
       {/* 10s Quick Log Trigger Banner */}
-      <div className="mt-4 pt-3 border-t border-blush-200/70 flex items-center justify-between relative z-10">
-        <div className="flex items-center space-x-1.5 text-xs text-plum-800 font-semibold">
+      <div className="mt-4 pt-3 border-t border-cream-200 flex items-center justify-between relative z-10">
+        <div className="flex items-center space-x-1.5 text-xs text-ink font-bold">
           <span>✨ Log today's flow in 1-tap:</span>
         </div>
         <button
           onClick={onLogClick}
-          className="px-4 py-2 bg-gradient-to-r from-plum-800 to-plum-900 hover:from-plum-900 hover:to-plum-950 active:scale-95 text-cream-50 font-bold text-xs rounded-full transition-all shadow-float flex items-center space-x-1.5"
+          className="px-4 py-2 bg-gradient-to-r from-coral-primary to-coral-600 hover:from-coral-500 hover:to-coral-700 active:scale-95 text-white font-extrabold text-xs rounded-full transition-all shadow-md flex items-center space-x-1.5"
         >
           <span>10s Log</span>
           <span>→</span>
